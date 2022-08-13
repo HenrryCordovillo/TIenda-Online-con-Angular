@@ -1,10 +1,86 @@
+<h1>*ngFor con interfaces</h1>
+<div>
+  <h2>Usuarios en produccion</h2>
+  <div *ngFor="let user of users; index as i">
+    <div>
+      <h3>Usuario numero {{ i }}</h3>
+      <div>{{ user.id }}</div>
+      <div>{{ user.username }}</div>
+      <img [src]="user.imgePerfil" alt="imagen de perfil del usuario" />
+      <div>{{ user.fullName }}</div>
+      <div [ngSwitch]="user.gender">
+        <p *ngSwitchCase="'Female'">Femenino</p>
+        <p *ngSwitchCase="'Male'">Masculino</p>
+        
+        <p *ngSwitchDefault>otro</p>
+      </div>
+      <div>{{ user.email }}</div>
+      <div>{{ user.age }}</div>
+      <div>{{ user.rol }}</div>
+      <div>{{ user.status }}</div>
+    </div>
+  </div>
+</div>
 
+<hr />
+<h1>*ngFor</h1>
+<input type="text" required [(ngModel)]="nombre" />
+<input type="number" required [(ngModel)]="edad" />
 
+<button (click)="addPerson()">agregar una nueva persona</button>
+<ul>
+  <li *ngIf="personas2.length == 0">No existen Usuarios</li>
+  <li *ngFor="let persona of personas2; index as i">
+    {{ i }}[ Avatar:
+    <img [src]="persona.avatar" alt="imagen" [width]="imagenwidth" /> , Nombre:
+    {{ persona.nombre }} ,Edad: {{ persona.edad }} ]
+    <button (click)="deletePerson(i)">Eliminar persona</button>
+  </li>
+</ul>
 
+<button (click)="aumentarImagen()">Aumentar tamaño de imagen</button>
+
+<hr />
+<h1>*ngIf</h1>
+<input type="text" [(ngModel)]="persona1.nombre" />
+<p *ngIf="persona1.nombre === 'Henrry' && persona1.edad == 18; else BloqueHTML">
+  Mi contenido es {{ persona1.nombre }}
+</p>
+<p *ngIf="persona1.nombre === 'Leti'">Mi contenido es {{ persona1.nombre }}</p>
+<p *ngIf="persona1.nombre === 'Jordy'">Mi contenido es {{ persona1.nombre }}</p>
+
+<ng-template #BloqueHTML>
+  <p>EL nombre o la edad no cumple los requisitos</p>
+</ng-template>
+
+<hr />
+<h1>NgModel</h1>
+
+<p>Nombre {{ persona1.nombre }}</p>
+<input
+  #nombreInput="ngModel"
+  type="text"
+  required
+  [(ngModel)]="persona1.nombre"
+/>
+<p>Valida: {{ nombreInput.valid }}</p>
+
+<p>Edad {{ persona1.edad }}</p>
+<input
+  #edadInput="ngModel"
+  type="number"
+  required
+  max="18"
+  min="10"
+  [(ngModel)]="persona1.edad"
+/>
+<p>Valida: {{ edadInput.valid }}</p>
+
+<hr />
 <h1>Eventos</h1>
 <button [disabled]="btnDisabled">Enviar</button>
 <button (click)="toggleButton()">Toggle Button</button>
-<p>edad {{ persona.edad }}</p>
+<p>edad {{ persona1.edad }}</p>
 <button (click)="aumentarEdad()">Aumentar Edad</button>
 <div class="box" (scroll)="onScroll($event)">
   Lorem ipsum dolor, sit amet consectetur adipisicing elit. Molestiae natus
@@ -12,18 +88,19 @@
   impedit incidunt minus, quia nesciunt excepturi! Unde optio quasi repudiandae
   ipsam!
 </div>
-<p>Nombre {{persona.nombre}}</p>
-<input type="text" [value]="persona.nombre" (keyup)="cambiNombre($event)" />
+<p>Nombre {{ persona1.nombre }}</p>
+<input type="text" [value]="persona1.nombre" (keyup)="cambiNombre($event)" />
+
 <hr />
 <h1>Property Binding</h1>
 <button [disabled]="btnDisabled">Enviar</button>
-<input type="text" [value]="persona.nombre" />
-<progress max="100" [value]="persona.edad"></progress>
-<img [src]="persona.avatar" alt="imagen" [width]="persona.avatarTamano" />
+<input type="text" [value]="persona1.nombre" />
+<progress max="100" [value]="persona1.edad"></progress>
+<img [src]="persona1.avatar" alt="imagen" [width]="persona1.avatarTamano" />
 <hr />
 <h1>Hola mundo</h1>
 <h2>{{ "Hola mundo".repeat(10) }}</h2>
 <p>3+3={{ 3 + 3 }}</p>
 
 <h3>Hola, soy {{ nombre }} y tengo {{ edad }}</h3>
-<img src="{{ imagen }}" alt="imagen" [width]="persona.avatarTamano" />
+<img src="{{ imagen }}" alt="imagen" [width]="persona1.avatarTamano" />

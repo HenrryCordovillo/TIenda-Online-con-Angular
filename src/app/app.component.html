@@ -1,6 +1,11 @@
 <h1>*ngFor con interfaces</h1>
 <div>
   <h2>Usuarios en produccion</h2>
+  
+  <div>
+    <p>Today: {{today | date:'shortTime'}}</p>
+    <p>Other Date {{date|date:'shortTime'}}</p>
+  </div>
   <div *ngFor="let user of users; index as i">
     <div>
       <h3>Usuario numero {{ i }}</h3>
